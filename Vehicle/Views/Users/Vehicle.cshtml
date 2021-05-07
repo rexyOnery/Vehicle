@@ -21,7 +21,7 @@
                 <div>
                     New Vehicle
                     <div class="page-title-subheading">
-                        This is an example dashboard created using build-in elements and components.
+                        New Vehicle details
                     </div>
                 </div>
             </div>
@@ -84,7 +84,12 @@
             </div>
         </div>
     </div>
-
+    <div class="col-md-12 hidden" id="error">
+        <div class="alert alert-warning fade show" role="alert">
+            <h5>Error!</h5>
+            <p class="mb-0" id="msg"></p>
+        </div>
+    </div>
     <div class="main-card mb-3 card">
         <div class="card-body">
             <h5 class="card-title">ADD VEHICLE</h5>
@@ -112,8 +117,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="position-relative form-group"><label for="chasis-number" class="">Chasis Number</label>
-                <input name="chasisnumber" id="chasis-number" placeholder="enter chasis number" type="text" class="form-control"></div>
+                <div class="position-relative form-group">
+                    <label for="chasis-number" class="">Chasis Number</label>
+                    <input name="chasisnumber" id="chasis-number" placeholder="enter chasis number" type="text" class="form-control">
+                </div>
 
                 <div class="position-relative row form-group">
                     <label for="exampleFile" class="col-sm-2 col-form-label">Vehicle Photo</label>
@@ -122,7 +129,7 @@
                         <small class="form-text text-muted">This is photo of the vehicle to be registered.</small>
                     </div>
                 </div>
-                <a href="javascript:AddVehicle();" id="btnAddVehicle"  class="mt-2 btn btn-primary pull-right">Save</a>
+                <a href="javascript:AddVehicle();" id="btnAddVehicle" class="mt-2 btn btn-primary pull-right">Save</a>
                 <button type="button" id="processor" class="btn-open-options btn btn-warning pull-right hidden">
                     <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
                 </button>

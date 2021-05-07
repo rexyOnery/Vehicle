@@ -20,8 +20,25 @@ namespace Vehicle.Models
         public int ItemId { get; set; }
         public string ItemType { get; set; }
         public bool Paid { get; set; }
-        public string TagNumber { get; set; } 
+        public string TagNumber { get; set; }
 
+        public string Chasis { get; set; }
+        public string Plate { get; set; }
+        public string Photo { get; set; }
+        public string Address { get; set; }
+        public string AgentName { get; set; }
+        public string AgentPhone { get; set; }
+
+
+    }
+
+    public class PayItems
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Date { get; set; }
+        public string Amount { get; set; }
+        public bool Paid { get; set; }
 
     }
 }

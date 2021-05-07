@@ -6,6 +6,13 @@
 
 <script src="https://js.paystack.co/v2/inline.js"></script>
 
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+
+
 <div class="app-main__inner">
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -15,9 +22,9 @@
                     </i>
                 </div>
                 <div>
-                    Personal Details
+                    Client Details
                     <div class="page-title-subheading">
-                        Tables are the backbone of almost all web applications.
+                        Client's personal and item details
                     </div>
                 </div>
             </div>
@@ -35,7 +42,7 @@
                     <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a href="/users" class="nav-link">
+                                <a href="/admin" class="nav-link">
                                     <i class="nav-link-icon lnr-file-empty"></i>
                                     <span>
                                         New User
@@ -43,7 +50,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/users/existing" class="nav-link">
+                                <a href="/admin/existing" class="nav-link">
                                     <i class="nav-link-icon lnr-book"></i>
                                     <span>
                                         Existing Subscribers
@@ -51,7 +58,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/users/active" class="nav-link">
+                                <a href="/admin/active" class="nav-link">
                                     <i class="nav-link-icon lnr-picture"></i>
                                     <span>
                                         Active Subscribers
@@ -59,7 +66,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/users/expired" class="nav-link">
+                                <a href="/admin/expired" class="nav-link">
                                     <i class="nav-link-icon lnr-picture"></i>
                                     <span>
                                         Expired Subscribers
@@ -67,7 +74,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a disabled href="/users/search" class="nav-link">
+                                <a disabled href="/admin/search" class="nav-link">
                                     <i class="nav-link-icon lnr-file-empty"></i>
                                     <span>
                                         Search Tag
@@ -81,7 +88,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
+            <div class="mb-3 progress hidden" id="processor">
+                <div class="progress-bar progress-bar-animated bg-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+            </div>
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <h5 class="card-title"><label id="firstname"></label> <label id="lastname"></label></h5>
@@ -100,6 +110,9 @@
                                         <tr>
                                             <td><label id="phone"></label></td>
                                         </tr>
+                                        <tr>
+                                            <td><label id="address"></label></td>
+                                        </tr>
                                     </table>
                                 </td>
                             </tr>
@@ -109,17 +122,22 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <h5 class="card-title">Tagged Vehicles</h5>
-                    <h5 class="card-title pull-right"><a href="/users/vehicle">Add More</a></h5>
+                    @*<h5 class="card-title pull-right">Agent Name: <label id="agentname"></label></h5>*@
                     <table class="mb-0 table table-dark">
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th></th>
                                 <th>Tag Number</th>
                                 <th>Item Type</th>
+                                <th>Chasis</th>
+                                <th>Plate</th>
+                                <th>Agent</th>
+                                <th>Agent Phone</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -131,7 +149,7 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="det" />
+<input type="hidden" id="admindet" />
 <script type="text/javascript">
     document.getElementById("customer-ul").className = 'mm-show';
 </script>

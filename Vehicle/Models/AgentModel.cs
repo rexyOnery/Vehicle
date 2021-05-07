@@ -13,6 +13,8 @@ namespace Vehicle.Models
         public string LastName { get; set; }
         public string LoginName { get; set; }
         public string Password { get; set; }
+        public string Phone { get; set; }
+        public string Admin { get; set; }
         public IFormFile Pix { get; set; }
     }
 }

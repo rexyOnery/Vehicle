@@ -28,7 +28,12 @@
 
         </div>
     </div>
-
+    <div class="col-md-12 hidden" id="error">
+        <div class="alert alert-warning fade show" role="alert">
+            <h5>Error!</h5>
+            <p class="mb-0" id="msg"></p>
+        </div>
+    </div>
     <div class="main-card mb-2 card">
         <div class="card-body">
             <h5 class="card-title">LOGIN</h5>
@@ -36,7 +41,7 @@
 
                 <div class="form-row">
                     <div class="col-md-4">
-                        <div class="position-relative form-group"><label for="login_name" class="">Login Name</label><input name="login_name" placeholder="ener e-mail address" id="login_name" type="text" class="form-control"></div>
+                        <div class="position-relative form-group"><label for="login_name" class="">Login Name</label><input name="login_name" placeholder="enter e-mail address" id="login_name" type="text" class="form-control"></div>
                     </div>
                     <div class="col-md-4">
                         <div class="position-relative form-group"><label for="password" class="">Password</label><input name="password" id="password" placeholder="enter password" type="password" class="form-control"></div>
@@ -45,7 +50,7 @@
                 </div>
                 <div class="form-row">
                     <div class="col-md-4">
-                        <div class="position-relative form-group"><a href="/account/register">Register</a></div>
+                        <div class="position-relative form-group"></div>
                     </div>
                     <div class="col-md-4">
                         <div class="position-relative form-group"><a href="/account/forgot">Forgot Password</a></div>

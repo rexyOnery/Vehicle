@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Form Layouts - Build whatever layout you need with our Architect framework.</title>
+    <title>Lock-Up Tags</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="Build whatever layout you need with our Architect framework.">
     <meta name="msapplication-tap-highlight" content="no">
@@ -59,26 +59,26 @@
             <div class="app-header__content">
                 <div class="app-header-left">
 
-                    @*<ul class="header-menu nav">
-                            <li class="nav-item">
-                                <a href="javascript:void(0);" class="nav-link">
-                                    <i class="nav-link-icon fa fa-database"> </i>
-                                    Statistics
-                                </a>
-                            </li>
-                            <li class="btn-group nav-item">
-                                <a href="javascript:void(0);" class="nav-link">
-                                    <i class="nav-link-icon fa fa-edit"></i>
-                                    Projects
-                                </a>
-                            </li>
-                            <li class="dropdown nav-item">
-                                <a href="javascript:void(0);" class="nav-link">
-                                    <i class="nav-link-icon fa fa-cog"></i>
-                                    Settings
-                                </a>
-                            </li>
-                        </ul>*@
+                    <ul class="header-menu nav">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link">
+                                <i class="nav-link-icon fa fa-home"> </i>
+                                Home
+                            </a>
+                        </li>
+                        <li class="btn-group nav-item">
+                            <a href="/about" class="nav-link">
+                                <i class="nav-link-icon fa fa-address-book"></i>
+                                About Us
+                            </a>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a href="/contact" class="nav-link">
+                                <i class="nav-link-icon fa fa-envelope-open"></i>
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="app-header-right">
@@ -93,25 +93,31 @@
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                                             <h6 tabindex="-1" id="agentName" class="dropdown-header"></h6>
+
                                             <div tabindex="-1" class="dropdown-divider"></div>
-                                            <button onclick="javascript:location.href = '/agent';" type="button" tabindex="0" class="dropdown-item">User Account</button>
+                                            <a href="/" tabindex="0" class="dropdown-item">Home</a>
+                                            <a href="" tabindex="0" class="dropdown-item">About Us</a>
+                                            <a href="" tabindex="0" class="dropdown-item">Contact</a> 
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+
+                                            <button onclick="javascript:location.href = '/admin';" type="button" tabindex="0" class="dropdown-item">User Account</button>
                                             <button onclick="javascript: logout();" type="button" tabindex="0" class="dropdown-item">Log Out</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
-                                    <div class="widget-heading">
-                                        Alina Mclourd
+                                    <div class="widget-heading" id="agentNames">
+
                                     </div>
                                     <div class="widget-subheading">
-                                        VP People Manager
+                                        Admin
                                     </div>
                                 </div>
-                                <div class="widget-content-right header-user-info ml-3">
-                                    <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
-                                        <i class="fa text-white fa-calendar pr-1 pl-1"></i>
-                                    </button>
-                                </div>
+                                @*<div class="widget-content-right header-user-info ml-3">
+                                        <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+                                            <i class="fa text-white fa-calendar pr-1 pl-1"></i>
+                                        </button>
+                                    </div>*@
                             </div>
                         </div>
                     </div>
@@ -160,6 +166,12 @@
                                     Admin Dashboard
                                 </a>
                             </li>
+                            <li>
+                                <a id="li-cash" href="/admin/cashout">
+                                    <i class="metismenu-icon pe-7s-cash"></i>
+                                    Agent Cash Out <span class="badge badge-pill badge-success" id="cash_count"></span>
+                                </a>
+                            </li>
                             <li class="app-sidebar__heading">Users</li>
 
                             <li>
@@ -175,22 +187,22 @@
                                             </i>New Agent
                                         </a>
                                     </li>
-                                    <li>
+                                    @*<li>
                                         <a id="li-customer2" href="/admin/existing">
                                             <i class="metismenu-icon">
                                             </i>Existing Subscribers
                                         </a>
-                                    </li>
+                                    </li>*@
                                     <li>
                                         <a id="li-customer3" href="/admin/active">
                                             <i class="metismenu-icon">
-                                            </i>Active Subscribers
+                                            </i>Active Vehicles
                                         </a>
                                     </li>
                                     <li>
                                         <a id="li-customer4" href="/admin/expired">
                                             <i class="metismenu-icon">
-                                            </i>Expired Subscribers
+                                            </i>Expired Vehicles
                                         </a>
                                     </li>
                                 </ul>
@@ -231,18 +243,42 @@
             </div>
         </div>
     </div>
+    <script>
+         var _agent_id = localStorage.getItem("agentid");
+        if (_agent_id == "" || _agent_id == null) {
+            location.href = "/";
+        } else {
+             
+            $("#img_agent").attr("src", "/uploads/" + localStorage.getItem("agentpix"));
+            $("#agentName").html(localStorage.getItem("agentname"));
+            $("#agentNames").html(localStorage.getItem("agentname"));
+        }
+
+         
+        CheckOut();
+        setInterval(function () { CheckOut(); }, 180000);
+
+        function CheckOut() {
+            $.ajax({
+
+                type: "GET",
+                url: "/admin/checkout/",
+                contentType: "application/json; charset=utf-8", 
+                dataType: "json",
+                success: function (data) {
+                    $("#cash_count").html(data);
+                },
+                error: function (req, status, error) {
+                     
+                }
+            });
+        }
+    </script>
+
     <script type="text/javascript" src="/assets/scripts/main.js"></script>
     <script type="text/javascript" src="~/js/site.js"></script>
     <script src="~/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script>
-        if (localStorage.getItem("agentid") == null) {
-            location.href = "/";
-        } else {
-            console.log(localStorage.getItem("agentpix"));
-            $("#img_agent").attr("src", "/uploads/" + localStorage.getItem("agentpix"));
-            $("#agentName").html(localStorage.getItem("agentname"));
-        }
-    </script>
+
 </body>
 </html>

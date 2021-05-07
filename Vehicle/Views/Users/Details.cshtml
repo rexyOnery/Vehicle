@@ -5,6 +5,12 @@
 }
 <script src="https://js.paystack.co/v2/inline.js"></script>
 
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 <div class="app-main__inner">
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -16,7 +22,7 @@
                 <div>
                     Personal Details
                     <div class="page-title-subheading">
-                        Tables are the backbone of almost all web applications.
+                        Client's personal and item details
                     </div>
                 </div>
             </div>
@@ -78,8 +84,11 @@
                 </div>
             </div>
         </div>
-    </div>            
+    </div>
     <div class="row">
+        <div class="mb-3 progress hidden" id="processor">
+            <div class="progress-bar progress-bar-animated bg-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+        </div>
         <div class="col-lg-6">
             <div class="main-card mb-3 card">
                 <div class="card-body">
@@ -122,7 +131,7 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody id="tbody">
+                        <tbody id="ubody">
                         </tbody>
                     </table>
                 </div>
@@ -130,12 +139,12 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="det" />
+<input type="hidden" id="userdetails" />
 <script type="text/javascript">
     document.getElementById("customer-ul").className = 'mm-show';
 
     function addMoreVehicle() {
-        var _query = location.search.split('='); 
+        var _query = location.search.split('=');
         location.href = "/users/vehicle?id=" + _query[1];
     }
 </script>

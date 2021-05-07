@@ -39,7 +39,7 @@
                     <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a href="/users" class="nav-link">
+                                <a href="/admin" class="nav-link">
                                     <i class="nav-link-icon lnr-file-empty"></i>
                                     <span>
                                         New User
@@ -47,7 +47,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/users/existing" class="nav-link">
+                                <a href="/admin/existing" class="nav-link">
                                     <i class="nav-link-icon lnr-book"></i>
                                     <span>
                                         Existing Subscribers
@@ -55,7 +55,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/users/active" class="nav-link">
+                                <a href="/admin/active" class="nav-link">
                                     <i class="nav-link-icon lnr-picture"></i>
                                     <span>
                                         Active Subscribers
@@ -63,7 +63,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/users/expired" class="nav-link">
+                                <a href="/admin/expired" class="nav-link">
                                     <i class="nav-link-icon lnr-picture"></i>
                                     <span>
                                         Expired Subscribers
@@ -71,7 +71,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a disabled href="/users/search" class="nav-link">
+                                <a disabled href="/admin/search" class="nav-link">
                                     <i class="nav-link-icon lnr-file-empty"></i>
                                     <span>
                                         Search Tag
@@ -96,7 +96,7 @@
                                 <div class="search-wrapper active" style="width:100%">
                                     <div class="input-holder" style="width:100%">
                                         <input type="text" id="txtSearch" class="search-input" placeholder="Type to search">
-                                        <button id="btnSearch" onclick="javascript: agentSearch();" class="search-icon"><span></span></button>
+                                        <button id="btnSearch" onclick="javascript: adminSearch();" class="search-icon"><span></span></button>
                                     </div>
                                     <span id="error" class="text-danger pull-left"></span>
                                     <div class="mb-3 progress hidden" id="processor">
@@ -142,6 +142,7 @@
                     <div class="main-card mb-3 card">
                         <div class="card-body">
                             <h5 class="card-title">Tagged Vehicles</h5>
+                            <img class="fa-square" id="car_img" height="250" width="400" />
                             <table class="mb-0 table table-dark">
                                 <thead>
                                     <tr>

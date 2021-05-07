@@ -64,9 +64,10 @@ namespace Vehicle.Controllers
         {
             var _pdf = model.Pix;
             if (_pdf != null)
-            {
-                var _counter = Services.Server.GetUserData<Agent>().Result.Count() + 1;
-                string _pdf_ = AddPDF(_pdf, "item_" + _counter);
+            { 
+                int _counter;
+                try { _counter = Server.GetUserData<Agent>().Result.Count() + 1; } catch { _counter = 1; }
+                string _pdf_ = AddPDF(_pdf, "agent_" + _counter);
                 if (_pdf_.StartsWith("Please") || _pdf_.Equals("error"))
                 {
 
@@ -80,7 +81,12 @@ namespace Vehicle.Controllers
                          LastName = model.LastName,
                          LoginName = model.LoginName,
                          Password = model.Password,
-                         Photo = _pdf_
+                         Phone = model.Phone,
+                         Admin = model.Admin,
+                         Photo = _pdf_,
+                         Disabled = false,
+                         ConfirmationCode = "-"
+
                     }; 
                     var _photo = await Server.AddAgent<Agent>(_agent);
                     if (_photo)
@@ -101,7 +107,41 @@ namespace Vehicle.Controllers
             
         }
 
-       
+        public void Forgot(Agent agent)
+        {
+            var _data = Server.GetUserData<Agent>().Result.Where(c => c.LoginName.Equals(agent.LoginName));
+            if(_data != null)
+            {
+                sendEmail(agent.LoginName);
+            }
+            return;
+        }
+
+        private Task<bool> sendEmail(string loginName)
+        {
+            return Server.RecoverPassword(loginName);
+        }
+
+        public bool ConfirmCode(Agent agent)
+        {
+            var _data = Server.GetUserData<Agent>().Result.Where(c => c.LoginName.Equals(agent.LoginName));
+            if (_data != null)
+            {
+                if (_data.FirstOrDefault().ConfirmationCode.Equals(agent.ConfirmationCode))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool ChangePassword(Agent account)
+        { 
+            return Server.ChangePassword<Agent>(account);
+        }
+
+
+
         public List<Agent> Login(Agent account)
         {
 
@@ -114,16 +154,23 @@ namespace Vehicle.Controllers
         }
 
 
-        public async Task<int> AddUsers(UserModel model)
+        public async Task<List<UserItems>> AdminSearcher(ItemModel model)
+        {
+            return await Server.AdminSearchAsync<UserItems>(model.TagNumber);
+        }
+
+
+        public int AddUsers(UserModel model)
         {
             var _pdf = model.Pix;
             if (_pdf != null)
             {
-                var _counter = Server.GetUserData<Vitsuser>().Result.FirstOrDefault().Id + 1;
-                string _pdf_ = AddPDF(_pdf, "file_" + _counter);
+                int _counter;
+                try { _counter = Server.GetUserData<Vitsuser>().Result.Count() + 1; } catch { _counter = 1; }
+                string _pdf_ = AddPDF(_pdf, "user_" + _counter);
                 if (_pdf_.StartsWith("Please") || _pdf_.Equals("error"))
                 {
-                     
+
                     return 0;
                 }
                 try
@@ -140,10 +187,10 @@ namespace Vehicle.Controllers
                         State = model.State
                     };
 
-                    var _photo = await Server.AddUsers<Vitsuser>(vitsuser);
-                    if (_photo.Count > 0)
+                    var _photo = Server.AddUsers<Vitsuser>(vitsuser);
+                    if (_photo > 0)
                     {
-                        return _counter;
+                        return vitsuser.Id;
                     }
                     else
                         return 0;
@@ -163,7 +210,8 @@ namespace Vehicle.Controllers
             var _pdf = model.Photo;
             if (_pdf != null)
             {
-                var _counter = Services.Server.GetUserData<Vitsitem>().Result.Count() + 1;
+                int _counter;
+                try { _counter = Server.GetUserData<Vitsitem>().Result.Count() + 1; } catch { _counter = 1; } 
                 string _pdf_ = AddPDF(_pdf, "item_" + _counter);
                 if (_pdf_.StartsWith("Please") || _pdf_.Equals("error"))
                 {
@@ -217,6 +265,12 @@ namespace Vehicle.Controllers
             return Server.GetAllAgentUsersAsync(id);
         }
 
+        public async Task<List<UserItems>> GetAllAgentClients(int id)
+        {
+            return Server.GetAllAgentClentsAsync(id);
+        }
+        
+
         public async Task<List<UserItems>> GetAllUsers()
         {
             return Server.GetAllAgentUsersAsync();
@@ -246,13 +300,19 @@ namespace Vehicle.Controllers
         {
             return Server.GetAllAgentUsersAsync(id);
         }
-
-        
         public async Task<int> SetPayment(int id)
         {
             return await Server.SetPayment(id);
         }
-         
+
+        public bool CashingOut(int AgentId , string Amount)
+        {
+            return Server.CashingOut(AgentId, Amount);
+        }
+
+
+        
+
         public string AddPDF(IFormFile idCard, string id)
         {
             try

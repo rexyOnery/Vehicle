@@ -91,8 +91,8 @@ namespace Vehicle.Controllers
                             State = user.State
                         };
 
-                        var _photo = await Server.AddUsers<Vitsuser>(vitsuser);
-                        if (_photo.Count > 0)
+                        var _photo = Server.AddUsers<Vitsuser>(vitsuser);
+                        if (_photo > 0)
                         {
                             return true;
                         }

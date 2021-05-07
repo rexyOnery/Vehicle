@@ -18,6 +18,7 @@ namespace Vehicle.Models
         }
 
         public virtual DbSet<Agent> Agents { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Vitsitem> Vitsitems { get; set; }
         public virtual DbSet<Vitsuser> Vitsusers { get; set; }
 
@@ -36,6 +37,10 @@ namespace Vehicle.Models
 
             modelBuilder.Entity<Agent>(entity =>
             {
+                entity.Property(e => e.Admin).HasMaxLength(50);
+
+                entity.Property(e => e.ConfirmationCode).HasMaxLength(50);
+
                 entity.Property(e => e.FirstName).HasMaxLength(50);
 
                 entity.Property(e => e.LastName).HasMaxLength(50);
@@ -44,7 +49,21 @@ namespace Vehicle.Models
 
                 entity.Property(e => e.Password).HasMaxLength(50);
 
+                entity.Property(e => e.Phone).HasMaxLength(50);
+
                 entity.Property(e => e.Photo).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.Property(e => e.Amount).HasMaxLength(50);
+
+                entity.Property(e => e.DatePaid).HasMaxLength(50);
+
+                entity.HasOne(d => d.Agent)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.AgentId)
+                    .HasConstraintName("FK_Payments_Agents");
             });
 
             modelBuilder.Entity<Vitsitem>(entity =>

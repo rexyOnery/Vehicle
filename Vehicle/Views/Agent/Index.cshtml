@@ -5,6 +5,11 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<style>
+    .hidden{
+        display:none;
+    }
+</style>
 <div class="app-main__inner">
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -80,6 +85,9 @@
         </div>
     </div>
     <div class="row">
+        <div class="mb-3 progress hidden" id="processor">
+            <div class="progress-bar progress-bar-animated bg-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+        </div>
         <div class="col-md-6 col-xl-4">
             <div class="card mb-3 widget-content bg-midnight-bloom">
                 <div class="widget-content-wrapper text-white">
@@ -89,6 +97,7 @@
                     </div>
                     <div class="widget-content-right">
                         <div class="widget-numbers text-white"><span id="totalClients"></span></div>
+                        <div class="text-white"><a href="#">-</a></div>
                     </div>
                 </div>
             </div>
@@ -98,10 +107,11 @@
                 <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
                         <div class="widget-heading">Total Active</div>
-                        <div class="widget-subheading">Clients Registered</div>
+                        <div class="widget-subheading">Vehicles</div>
                     </div>
                     <div class="widget-content-right">
                         <div class="widget-numbers text-white"><span id="totalActive"></span></div>
+                        <div class="text-white"><a href="#">-</a></div>
                     </div>
                 </div>
             </div>
@@ -110,17 +120,25 @@
             <div class="card mb-3 widget-content bg-grow-early">
                 <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
-                        <div class="widget-heading">Income</div>
+                        <div class="widget-heading">Current Income</div>
                         <div class="widget-subheading">20% of Active Clients</div>
                     </div>
                     <div class="widget-content-right">
                         <div class="widget-numbers text-white">&#8358;<span id="totalIncome"> </span></div>
+                        <div class="text-white"><a href="javascript:PayOut();">Pay Out</a></div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-6 col-xl-12 hidden" id="pad">
+            <div class="card mb-3 widget-content bg-grow-early">
+                <div class="widget-content-wrapper text-white">
+                    <div class="text-white" id="msg"></div>
+                </div>
+            </div>
+        </div>
 
-         
+
     </div>
 
     <div class="row">
@@ -141,16 +159,15 @@
                             <tr>
                                 <th class="text-center">#</th>
                                 <th>Name</th>
-                                <th class="text-center">City</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center">Actions</th>
+                                <th class="text-center">Phone</th> 
+                                <th class="text-center"></th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
                         </tbody>
                     </table>
                 </div>
-                <div class="d-block text-center card-footer">
+                @*<div class="d-block text-center card-footer">
                     <nav class="pull-right" aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item"><a href="javascript:void(0);" class="page-link" aria-label="Previous"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
@@ -162,7 +179,7 @@
                             <li class="page-item"><a href="javascript:void(0);" class="page-link" aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
                         </ul>
                     </nav>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
